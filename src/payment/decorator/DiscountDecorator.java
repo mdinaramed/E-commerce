@@ -1,22 +1,26 @@
 package payment.decorator;
+import discountSystem.DiscountPolicy;
+import discountSystem.PercentOff;
 import payment.Payment;
 import shop.Order;
 import shop.PaymentResult;
+
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class DiscountDecorator extends PaymentDecorator {
-    private final BigDecimal percent;
+    private final DiscountPolicy policy;;
 
-    public DiscountDecorator(Payment base, BigDecimal percent) {
+    public DiscountDecorator(Payment base, DiscountPolicy policy) {
         super(base);
-        if(percent.compareTo(BigDecimal.ZERO) < 0 || percent.compareTo(BigDecimal.ONE) > 0) throw new IllegalArgumentException("percentage must be between 0 and 1");
-        this.percent = percent;
+        this.policy = policy;
+    }
+    public DiscountDecorator(Payment base, BigDecimal percent) {
+        this(base, new PercentOff(percent));
     }
     @Override
     public PaymentResult pay(Order order, BigDecimal amount) {
-        BigDecimal discounted = amount.subtract(amount.multiply(percent)).setScale(2, RoundingMode.HALF_UP);
-        order.amount(discounted);
+        BigDecimal discounted = policy.apply(amount);
+        order.setAmount(discounted);
         return super.pay(order, discounted);
     }
 }

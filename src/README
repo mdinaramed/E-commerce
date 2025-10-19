@@ -1,0 +1,65 @@
+# 💳 E-Commerce Payment & Deposit System
+
+### 🔹 Author: Dinara
+### 🔹 Language: Java 17+
+### 🔹 Database: PostgreSQL
+### 🔹 IDE: IntelliJ IDEA
+### 🔹 Patterns Used: Decorator, Facade, Factory, Builder, Adapter, Bridge
+
+__________________________
+
+##  Project Overview
+
+This Java-based project demonstrates how multiple **structural design patterns** can be combined in a clean, modular **E-Commerce Checkout System**.
+It includes dynamic discounts, cashback points, fraud detection, and a deposit module with an interest calculator — all integrated with **PostgreSQL** for persistence.
+
+###  Features:
+- 🛒 Full checkout workflow (Cart → Payment → Receipt)
+- 💰 Dynamic discounts and automatic cashback
+- ⚠️ Fraud detection for large transactions
+- 🏦 Deposit system with interest calculation
+- 💾 Database persistence via JDBC and PostgreSQL
+- 🧩 Modular architecture with multiple design patterns
+
+__________________________
+
+## 🧩 Implemented Design Patterns
+
+| Pattern | Package | Role / Description |
+|----------|----------|--------------------|
+| **Decorator** | `payment.decorator.*` | Dynamically adds discount, cashback, or fraud detection features to payments |
+| **Facade** | `facade.CheckoutFacade`, `finance.DepositService` | Simplifies complex processes like checkout and deposit management |
+| **Factory / Abstract Factory** | `payment.factory.*` | Creates payment objects (CreditCard, PayPal, StripeAdapter) |
+| **Builder** | `builder.OptionsBuilder` | Builds checkout configuration options step-by-step |
+| **Adapter** | `payment.adapter.StripeAdapter` | Integrates external payment APIs (Stripe) into the unified interface |
+| **Bridge** | `payment.bridge.*` | Separates payment abstraction from provider implementation |
+| **Repository** | `shop.CustomerRepository`, `finance.DepositRepository` | Encapsulates all PostgreSQL CRUD operations |
+
+__________________________
+
+CREATE TABLE customers (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    name VARCHAR(100),
+    points INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE deposits (
+    id SERIAL PRIMARY KEY,
+    customer_email VARCHAR(255),
+    principal NUMERIC(12,2),
+    rate NUMERIC(5,2),
+    open_date DATE,
+    close_date DATE,
+    profit NUMERIC(12,2)
+);
+
+
+__________________________
+
+Deposit Flow
+	1.	Open a deposit (amount + interest rate)
+	2.	Preview bonus for specific days
+	3.	Close deposit and calculate total profit
+	4.	View all user deposits (stored in DB)

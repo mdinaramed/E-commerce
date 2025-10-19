@@ -2,6 +2,7 @@ package payment.decorator;
 import payment.Payment;
 import shop.Order;
 import shop.PaymentResult;
+
 import java.math.BigDecimal;
 
 public abstract class PaymentDecorator implements Payment {

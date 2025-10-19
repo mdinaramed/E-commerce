@@ -20,7 +20,7 @@ public class Order {
     public BigDecimal amount() {
         return amount;
     }
-    public void amount(BigDecimal a) {
-        amount = a;
+    public void setAmount(BigDecimal a) {
+        this.amount = a;
     }
 }
