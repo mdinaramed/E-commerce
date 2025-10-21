@@ -21,9 +21,9 @@ public class CashbackDecorator extends PaymentDecorator {
         PaymentResult res = super.pay(order, amount);
 
         if (res.success()) {
-            BigDecimal basis = order.amount(); // уже дисконтированная сумма
+            BigDecimal basis = order.amount();
             int points = basis
-                    .divide(BigDecimal.valueOf(perUnit), 0, RoundingMode.DOWN) // только целая часть
+                    .divide(BigDecimal.valueOf(perUnit), 0, RoundingMode.DOWN)
                     .intValue();
             order.customer().addPoints(points);
         }

@@ -26,8 +26,7 @@ public class Deposit {
     public int id() {
         return id;
     }
-    public String customerEmail() {
-        return customerEmail;
+    public String customerEmail() {return customerEmail;
     }
     public BigDecimal principal() {
         return principal;
