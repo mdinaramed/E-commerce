@@ -10,7 +10,7 @@ public class FraudDetectionDecorator extends PaymentDecorator {
 
     public FraudDetectionDecorator(Payment base, BigDecimal threshold) {
         super(base);
-        this.threshold = threshold == null ? new BigDecimal("5000") : threshold;
+        this.threshold = threshold == null ? new BigDecimal("1000000") : threshold;
     }
 
     @Override

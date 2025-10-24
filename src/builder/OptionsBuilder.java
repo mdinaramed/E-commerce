@@ -44,7 +44,6 @@ public class OptionsBuilder {
     }
 
     public CheckoutFacade.Options build() {
-        return new CheckoutFacade.Options(discounts, discount, fraud, fraudThreshold, cashback, cashbackUnit
-        );
+        return new CheckoutFacade.Options(discounts, discount, fraud, fraudThreshold, cashback, cashbackUnit);
     }
 }

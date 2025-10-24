@@ -17,7 +17,6 @@ public class CashbackDecorator extends PaymentDecorator {
 
     @Override
     public PaymentResult pay(Order order, BigDecimal amount) {
-        // сначала пройдём внутрь: тут применится Discount и order.amount() станет «после скидки»
         PaymentResult res = super.pay(order, amount);
 
         if (res.success()) {

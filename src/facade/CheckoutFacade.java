@@ -77,7 +77,7 @@ public class CheckoutFacade {
             }
             if (opt.cashback()) p = new CashbackDecorator(p, opt.cashbackUnit());
             if (opt.fraud()) {
-                BigDecimal thr = opt.fraudThreshold()==null ? new BigDecimal("5000") : opt.fraudThreshold();
+                BigDecimal thr = opt.fraudThreshold()==null ? new BigDecimal("1000000") : opt.fraudThreshold();
                 p = new FraudDetectionDecorator(p, thr);
             }
         }

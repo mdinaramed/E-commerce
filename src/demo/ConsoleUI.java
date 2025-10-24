@@ -30,7 +30,7 @@ public class ConsoleUI {
     }
 
     public void start() throws Exception {
-        System.out.println(" Welcome to E-Commerce system");
+        System.out.println(" Welcome to Di E-Commerce system");
 
         Customer customer = setupCustomer();
 
@@ -48,20 +48,20 @@ public class ConsoleUI {
                 case 2 -> depositMenu(customer);
             }
         }
-        System.out.println("Bye ");
+        System.out.println("Bye Bye :) ");
         sc.close();
     }
 
     // Customer
     private Customer setupCustomer() throws Exception {
-        System.out.print("Name: ");
+        System.out.print("Enter Name: ");
         String name = sc.nextLine().trim();
-        System.out.print("Email: ");
+        System.out.print("Your Email: ");
         String email = sc.nextLine().trim();
 
         Customer c = customerRepo.findByEmail(email).orElseGet(() -> new Customer(email, name));
         customerRepo.save(c);
-        System.out.println("Profile ready. Points: " + c.points());
+        System.out.println("Profile is ready. Points you've got: " + c.points());
         return c;
     }
 
@@ -70,12 +70,12 @@ public class ConsoleUI {
         System.out.println("\n CHECKOUT ");
         Cart cart = buildCart();
         if (cart.subTotal().compareTo(BigDecimal.ZERO) == 0) {
-            System.out.println("Cart is empty — nothing to buy.");
+            System.out.println("Cart is empty - nothing to buy.");
             return;
         }
 
         // выбор способа оплаты
-        System.out.println("Payment type: 1) Card  2) PayPal  3) Stripe(Adapter)");
+        System.out.println("Payment type: 1) Card  2) PayPal  3) Stripe");
         int pm = readInt(1, 3);
         Payment payment = switch (pm) {
             case 2 -> {
@@ -92,15 +92,15 @@ public class ConsoleUI {
 
         System.out.print("Apply discount? (y/n): ");
         if (yes()) {
-            System.out.print("Discount percent (e.g. 0.10): ");
-            ob.discount(readBig());
+            ob.discount(new BigDecimal("0.10"));
+            System.out.println(" A 10% discount has been applied to your order");
         }
         ob.cashback();
-        System.out.println("💎 Cashback enabled: 1 point per each 50 spent.");
+        System.out.println("💰 Cashback enabled: 1 point per each 50 spent.");
 
         System.out.print("Enable fraud detection? (y/n): ");
         if (yes()) {
-            System.out.print("Threshold (e.g. 5000): ");
+            System.out.print("Threshold: ");
             ob.fraud(readBig());
         }
 

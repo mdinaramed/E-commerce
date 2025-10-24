@@ -6,7 +6,8 @@ import java.time.temporal.ChronoUnit;
 
 public class Calculator {
     private final int dayBase;
-    public Calculator() { this(365); }
+    public Calculator() {
+        this(365); }
     public Calculator(int dayBase) {
         this.dayBase = dayBase <= 0 ? 365 : dayBase;
     }
